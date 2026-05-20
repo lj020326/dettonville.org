@@ -10,7 +10,8 @@
     </div>
 </div>
 <div>{{ .Content }}</div>
-    {{ range sort $.Site.Data.team "order" "asc" }}
+    {{ $team := hugo.Data "team" }}
+    {{ range sort $team "order" "asc" }}
 <div class="uk-grid">
     <div class="uk-width-1-5">
         <img src="http://www.gravatar.com/avatar/{{ .gravatar }}?s=100" />
