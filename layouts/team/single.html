@@ -10,7 +10,8 @@
     </div>
 </div>
 <div>{{ .Content }}</div>
-    {{ $team := hugo.Data "team" }}
+    {{ $data := hugo.Data }}
+    {{ $team := index $data "team" }}
     {{ range sort $team "order" "asc" }}
 <div class="uk-grid">
     <div class="uk-width-1-5">
