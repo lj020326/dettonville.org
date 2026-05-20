@@ -21,6 +21,6 @@ To deploy site, run
 ```bash
 cd public
 
-git add . && git commit -a -m 'uodates'
+git add . && git commit -a -m 'updates'
 git push origin
 ```
