@@ -13,6 +13,8 @@ To test, run
 
 ```bash
 hugo serve
+## OR
+hugo server --gc --minify --disableFastRender
 ```
 
 ## To Deploy
