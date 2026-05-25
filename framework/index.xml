@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>The Dettonville Framework on Dettonville</title><link>https://dettonville.org/framework/</link><description>Recent content in The Dettonville Framework on Dettonville</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 21 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dettonville.org/framework/index.xml" rel="self" type="application/rss+xml"/><item><title>Platform Architecture Guidelines</title><link>https://dettonville.org/framework/architecture/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/framework/architecture/</guid><description>&lt;p&gt;To achieve deterministic and immutable runtime states across an entire organizational domain, the underlying infrastructure must eliminate manual adjustments, ephemeral staging, and environmental drift.&lt;/p&gt;
+&lt;p&gt;The Dettonville framework enforces this by applying rigorous &lt;strong&gt;Configuration-as-Code (CaC)&lt;/strong&gt; principles directly to the &lt;strong&gt;Control-Plane Fixtures&lt;/strong&gt; that anchor the domain before application layers are ever introduced.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="the-immutable-control-plane-foundation"&gt;The Immutable Control-Plane Foundation&lt;/h2&gt;
+&lt;p&gt;In an air-gapped or corporate datacenter environment, applications cannot rely on external, cloud-managed primitives. Instead, core network and operational fixtures must be stood up locally. The framework categorizes these foundational elements as the domain&amp;rsquo;s &lt;strong&gt;Deterministic Control Plane&lt;/strong&gt;:&lt;/p&gt;</description></item><item><title>Local Hardening Standards</title><link>https://dettonville.org/framework/security/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/framework/security/</guid><description>&lt;p&gt;Operating infrastructure in private or regulated environments requires moving away from reactive security patches and public trust assumptions. The Dettonville framework integrates cryptographic verification and operating system hardening directly into its execution loop, treating security as an immutable system property rather than a post-provisioning checklist.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="defensive-boundary-architecture"&gt;Defensive Boundary Architecture&lt;/h2&gt;
+&lt;p&gt;The framework operates under a zero-trust execution model inside your local network perimeter, structuring defensive layers into three clear operational vectors:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph LR
+A[Cryptographic PKI&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Isolated Trust Anchors&amp;lt;/code&amp;gt;] --&amp;gt; B[OS Level Hardening&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;CIS Baselines / PAM&amp;lt;/code&amp;gt;]
+B --&amp;gt; C[Supply Chain Lock&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Signed Payload Ingest&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="1-cryptographic-pki--local-trust-anchors"&gt;1. Cryptographic PKI &amp;amp; Local Trust Anchors&lt;/h3&gt;
+&lt;p&gt;Without access to external public Certificate Authorities (CAs), the domain must maintain a self-contained, high-integrity cryptographic anchor.&lt;/p&gt;</description></item><item><title>Automation Engineering Standards</title><link>https://dettonville.org/framework/automation/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/framework/automation/</guid><description>&lt;p&gt;To ensure that the datacenter orchestration remains predictable, repeatable, and maintainable across long-term lifecycles, all playbook and role development must conform to strict structural programming standards.&lt;/p&gt;
+&lt;p&gt;By treating infrastructure code with the same rigor as compiled application software, the platform completely eliminates ad-hoc modifications, fragile shell-script loops, and opaque node states.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="core-development-patterns"&gt;Core Development Patterns&lt;/h2&gt;
+&lt;p&gt;The framework enforces three primary software engineering concepts across the entire code repository:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph TD
+A[Decoupled Logic &amp;amp; Data&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Tasks vs inventory/group_vars&amp;lt;/code&amp;gt;] --&amp;gt; B[Strict Idempotency Proofs&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Molecule Testing Lifecycle&amp;lt;/code&amp;gt;]
+B --&amp;gt; C[Flat-File Schema Output&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;No External Database States&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="1-decoupling-execution-logic-from-state-data"&gt;1. Decoupling Execution Logic from State Data&lt;/h3&gt;
+&lt;p&gt;Tasks and roles must operate as generic, abstract machines. No hardcoded hostnames, interface strings, IP assignments, or target configuration blocks are permitted inside a role&amp;rsquo;s &lt;code&gt;tasks/main.yml&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Programmatic Inventory Lifecycle</title><link>https://dettonville.org/framework/inventory-lifecycle/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/framework/inventory-lifecycle/</guid><description>&lt;p&gt;The platform maintains absolute alignment between live compute assets and your declarative code definitions by eliminating manual inventory adjustments. When a virtual machine or bare-metal host is spun up or decommissioned, the lifecycle event is programmatically committed to the Git-backed inventory repository via API integration patterns.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="programmatic-provisioning--git-loop"&gt;Programmatic Provisioning &amp;amp; Git Loop&lt;/h2&gt;
+&lt;p&gt;The host enrollment lifecycle transitions an initial provisioning request into a git-versioned inventory alignment loop without operator intervention:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph TD
+A[1. Provisioning Requested&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;In-House System&amp;lt;/code&amp;gt;] --&amp;gt; B[2. Automated API Signal&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;AAP / AWX / Jenkins&amp;lt;/code&amp;gt;]
+B --&amp;gt; C[3. Execute Provisioning Job&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Playbook / Runner Bubble&amp;lt;/code&amp;gt;]
+C --&amp;gt; D[4. Ingest &amp;amp; Target State&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;git_inventory.update_inventory&amp;lt;/code&amp;gt;]
+D --&amp;gt; E[5. Mutate &amp;amp; Lock Blueprint&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Clone ➔ Update ➔ Commit ➔ Push&amp;lt;/code&amp;gt;]
+E --&amp;gt; F[6. Core Site Realization&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;site.yml Active Deployment&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style D fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style E fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style F fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h2 id="architectural-lifecycle-steps"&gt;Architectural Lifecycle Steps&lt;/h2&gt;
+&lt;h3 id="1-in-house-provisioning-request"&gt;1. In-House Provisioning Request&lt;/h3&gt;
+&lt;p&gt;An infrastructure scaling event or machine decommissioning request is initiated inside your internal, in-house provisioning system. This request carries key asset markers including IP addresses, hostnames, and targeted functional groups (such as GPU capabilities or specific application tags).&lt;/p&gt;</description></item></channel></rss>

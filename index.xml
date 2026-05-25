@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Dettonville Project on Dettonville</title><link>https://dettonville.org/</link><description>Recent content in Dettonville Project on Dettonville</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 21 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dettonville.org/index.xml" rel="self" type="application/rss+xml"/><item><title>Core System Hardening Roles</title><link>https://dettonville.org/ansible/system-hardening/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/ansible/system-hardening/</guid><description>&lt;p&gt;The baseline security of the entire datacenter depends on the initial stabilization pass applied to the underlying operating system. The platform handles this through two critical automation components: a dedicated initial access role (&lt;code&gt;bootstrap_ansible_user&lt;/code&gt;) and a multi-tier orchestration role (&lt;code&gt;bootstrap_linux&lt;/code&gt;) that executes modular configuration steps before invoking our authoritative security standard (&lt;code&gt;harden_os_linux&lt;/code&gt;).&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="technical-stand-up-pipeline"&gt;Technical Stand-Up Pipeline&lt;/h2&gt;
+&lt;p&gt;The execution sequence within the system hardening track transitions a newly provisioned, untrusted OS footprint into a fully managed, locked-down node:&lt;/p&gt;</description></item><item><title>Declarative Jenkins Infrastructure</title><link>https://dettonville.org/ecosystem/jenkins-infrastructure/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/ecosystem/jenkins-infrastructure/</guid><description>&lt;p&gt;The central automation engine behind the platform eliminates manual controller configuration, ephemeral GUI tweaks, and error-prone &amp;ldquo;click-ops&amp;rdquo; management. By enforcing a &lt;strong&gt;keyless operator model&lt;/strong&gt;—where no administrator ever types configuration details or builds jobs inside an interactive user interface—the entire platform stays aligned, consistent, and easily reconstructed straight from source code.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="operator-free-control-plane-architecture"&gt;Operator-Free Control Plane Architecture&lt;/h2&gt;
+&lt;p&gt;The initialization sequence transitions raw configuration blueprints into fully dynamic execution runners without human keyboard intervention:&lt;/p&gt;</description></item><item><title>Baseline Infrastructure Bootstrapping</title><link>https://dettonville.org/site-management/bootstrap/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/site-management/bootstrap/</guid><description>&lt;p&gt;The &lt;strong&gt;Baseline Bootstrapping&lt;/strong&gt; track governs the low-level lifecycle of the data center. It stabilizes raw physical chassis, injects operating system foundations, and constructs virtual hypervisor control boundaries.&lt;/p&gt;
+&lt;p&gt;Because this track establishes the initial connection vectors and credentials for untrusted or bare-metal assets, it serves as the prerequisite foundation for all downstream application runtimes.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="technical-execution-flow"&gt;Technical Execution Flow&lt;/h2&gt;
+&lt;p&gt;The bootstrap track progresses outward from bare hardware to virtual hypervisor layers:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph TD
+A[Out-of-Band Hardware Management&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;--tags bootstrap-idrac&amp;lt;/code&amp;gt;] --&amp;gt; B[Operating System Base Stabilization&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;--tags bootstrap-linux&amp;lt;/code&amp;gt;]
+B --&amp;gt; C[Hypervisor Switch &amp;amp; Storage Fabrics&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;--tags bootstrap-esx, bootstrap-proxmox&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h2 id="role--tag-mapping-matrix"&gt;Role &amp;amp; Tag Mapping Matrix&lt;/h2&gt;
+&lt;h3 id="1-out-of-band-hardware-control"&gt;1. Out-of-Band Hardware Control&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target Plays:&lt;/strong&gt; &lt;code&gt;Bootstrap Dell iDRAC Hosts&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invocation Tags:&lt;/strong&gt; &lt;code&gt;bootstrap-idrac&lt;/code&gt;, &lt;code&gt;bootstrap_dell_idrac&lt;/code&gt;, &lt;code&gt;idrac&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Core Roles:&lt;/strong&gt; &lt;code&gt;bootstrap_dell_racadm_host&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mechanics:&lt;/strong&gt; Establishes out-of-band communication paths via Dell RACADM utility interfaces. This play configures baseline hardware properties, establishes localized RAID array boundaries, modifies low-level BIOS settings, and applies hardware-level network interfaces before an operating system is ever initialized.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="2-operating-system-stabilization"&gt;2. Operating System Stabilization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target Plays:&lt;/strong&gt; &lt;code&gt;Bootstrap Linux Operating Systems&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invocation Tags:&lt;/strong&gt; &lt;code&gt;bootstrap-linux&lt;/code&gt;, &lt;code&gt;bootstrap_linux&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Core Roles:&lt;/strong&gt; &lt;code&gt;bootstrap_linux&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mechanics:&lt;/strong&gt; Converts an unconfigured base OS install into a predictable engineering node. In alignment with our strict &lt;strong&gt;DRY (Don&amp;rsquo;t Repeat Yourself)&lt;/strong&gt; baseline, this singular role handles variations across Ubuntu, CentOS, Debian, and Rocky Linux by mapping parameters to discovered host facts.
+&lt;ul&gt;
+&lt;li&gt;Configures persistent network channel-bonding interface rules.&lt;/li&gt;
+&lt;li&gt;Maps multi-tiered storage disk volumes and applies optimized mounting flags.&lt;/li&gt;
+&lt;li&gt;Overrides package manager paths to target localized mirror systems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="3-hypervisor-integration-profiles"&gt;3. Hypervisor Integration Profiles&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target Plays:&lt;/strong&gt; &lt;code&gt;Bootstrap ESX Hosts&lt;/code&gt;, &lt;code&gt;Bootstrap Proxmox Hosts&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invocation Tags:&lt;/strong&gt; &lt;code&gt;bootstrap-esx&lt;/code&gt;, &lt;code&gt;bootstrap-proxmox&lt;/code&gt;, &lt;code&gt;bootstrap_esx&lt;/code&gt;, &lt;code&gt;bootstrap_proxmox&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Core Roles:&lt;/strong&gt; &lt;code&gt;bootstrap_esx&lt;/code&gt;, &lt;code&gt;bootstrap_proxmox&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mechanics:&lt;/strong&gt; Sets up virtual compute fabrics. It provisions persistent storage datastores, binds isolated private switch ports, and prepares virtual node templating controllers to handle automated workload scaling.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="operational-credential-bootstrapping"&gt;Operational Credential Bootstrapping&lt;/h2&gt;
+&lt;p&gt;When provisioning fresh infrastructure components that do not yet possess your team&amp;rsquo;s standard administrative keys or automation users, the implicit &lt;code&gt;always&lt;/code&gt; pre-flight checks (&lt;code&gt;apply_ping_test&lt;/code&gt;, &lt;code&gt;apply_common_groups&lt;/code&gt;) will fail because they depend on pre-existing authentication states.&lt;/p&gt;</description></item><item><title>Core System Modules</title><link>https://dettonville.org/modules/core/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/modules/core/</guid><description>&lt;p&gt;The &lt;code&gt;dettonville.core&lt;/code&gt; module collection provides the primary lifecycle primitives required to bootstrap and stabilize raw compute instances before platform runtimes or container clusters are deployed. These assets operate natively on bare-metal systems, hypervisor instances, or private enterprise network matrices.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="module-inventory--parameter-specifications"&gt;Module Inventory &amp;amp; Parameter Specifications&lt;/h2&gt;
+&lt;h3 id="1-network-interface-bonding-core_network_bond"&gt;1. Network Interface Bonding (&lt;code&gt;core_network_bond&lt;/code&gt;)&lt;/h3&gt;
+&lt;p&gt;Configures kernel-level network interface aggregation to guarantee path redundancy and maximum throughput for data-plane traffic without relying on external upstream dhcp daemons.&lt;/p&gt;</description></item><item><title>Machine Image Delivery &amp; Containment</title><link>https://dettonville.org/ecosystem/image-containment/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/ecosystem/image-containment/</guid><description>&lt;p&gt;The platform enforces absolute isolation across the execution grid. By decoupling execution tools from the host operating system, target nodes require no pre-installed development packages, language runtimes, or custom binaries.&lt;/p&gt;
+&lt;p&gt;Instead, a target node simply needs a standardized, hardened container runtime base. All pipeline jobs, testing loops, and orchestration scripts run inside purpose-built, disposable container environments.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="the-host-bootstrapping--containment-pipeline"&gt;The Host Bootstrapping &amp;amp; Containment Pipeline&lt;/h2&gt;
+&lt;p&gt;The transition from a raw compute template to an active, containerized execution worker follows a strict, repeatable path:&lt;/p&gt;</description></item><item><title>Platform Architecture Guidelines</title><link>https://dettonville.org/framework/architecture/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/framework/architecture/</guid><description>&lt;p&gt;To achieve deterministic and immutable runtime states across an entire organizational domain, the underlying infrastructure must eliminate manual adjustments, ephemeral staging, and environmental drift.&lt;/p&gt;
+&lt;p&gt;The Dettonville framework enforces this by applying rigorous &lt;strong&gt;Configuration-as-Code (CaC)&lt;/strong&gt; principles directly to the &lt;strong&gt;Control-Plane Fixtures&lt;/strong&gt; that anchor the domain before application layers are ever introduced.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="the-immutable-control-plane-foundation"&gt;The Immutable Control-Plane Foundation&lt;/h2&gt;
+&lt;p&gt;In an air-gapped or corporate datacenter environment, applications cannot rely on external, cloud-managed primitives. Instead, core network and operational fixtures must be stood up locally. The framework categorizes these foundational elements as the domain&amp;rsquo;s &lt;strong&gt;Deterministic Control Plane&lt;/strong&gt;:&lt;/p&gt;</description></item><item><title>Runtime Fabric &amp; Containment Roles</title><link>https://dettonville.org/ansible/runtime-fabric/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/ansible/runtime-fabric/</guid><description>&lt;p&gt;Once the underlying operating system is fully stabilized and hardened by the foundational bootstrap phase, the platform provisions its active execution fabric. By isolating all downstream workloads inside standard container spaces, the system ensures zero package drift on the host nodes while supporting high-density compute and accelerated local AI processing.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="execution-fabric-stand-up-flow"&gt;Execution Fabric Stand-Up Flow&lt;/h2&gt;
+&lt;p&gt;The runtime fabric roles transition a bare operating system node into an active container cluster or accelerated hardware endpoint:&lt;/p&gt;</description></item><item><title>Control-Plane Configuration &amp; Identity</title><link>https://dettonville.org/site-management/config/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/site-management/config/</guid><description>&lt;p&gt;The &lt;strong&gt;Control-Plane Configuration &amp;amp; Identity&lt;/strong&gt; track governs the configuration layer of the datacenter. Once a target host has been physically and structurally stabilized by the bootstrapping phase, this track injects the cryptographic profiles, local lookup tables, and management portals required to coordinate multi-node workflows.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="technical-execution-flow"&gt;Technical Execution Flow&lt;/h2&gt;
+&lt;p&gt;The configuration track establishes security anchors before hydrating platform connectivity and automation controllers:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph LR
+A[Cryptographic Trust&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;--tags bootstrap-ca-certs&amp;lt;/code&amp;gt;] --&amp;gt; B[Core Network Control Plane&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;--tags config-dns&amp;lt;/code&amp;gt;]
+B --&amp;gt; C[Orchestration Nodes&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;--tags config-tower&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h2 id="role--tag-mapping-matrix"&gt;Role &amp;amp; Tag Mapping Matrix&lt;/h2&gt;
+&lt;h3 id="1-local-ca-certification--distribution"&gt;1. Local CA Certification &amp;amp; Distribution&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target Plays:&lt;/strong&gt; &lt;code&gt;Bootstrap CA Certificates&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invocation Tags:&lt;/strong&gt; &lt;code&gt;bootstrap-ca-certs&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Core Roles:&lt;/strong&gt; &lt;code&gt;bootstrap_ca_certs&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mechanics:&lt;/strong&gt; Distributes and registers internal corporate root and intermediate certificates deterministically across system trust anchors. It updates the operating system&amp;rsquo;s central certificate store, allowing internal services to communicate over secure, verified mutual TLS (mTLS) channels without encountering untrusted authority alerts.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="2-core-network-control-plane"&gt;2. Core Network Control Plane&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target Plays:&lt;/strong&gt; &lt;code&gt;Configure Bind DNS Service&lt;/code&gt;, &lt;code&gt;Configure Knot DNS Service&lt;/code&gt;, &lt;code&gt;Configure PowerDNS Service&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invocation Tags:&lt;/strong&gt; &lt;code&gt;config-dns&lt;/code&gt;, &lt;code&gt;config-dns-bind&lt;/code&gt;, &lt;code&gt;config-dns-knot&lt;/code&gt;, &lt;code&gt;config-dns-powerdns&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Core Roles:&lt;/strong&gt; &lt;code&gt;bootstrap_bind_dns_host&lt;/code&gt;, &lt;code&gt;bootstrap_knot_dns_host&lt;/code&gt;, &lt;code&gt;bootstrap_powerdns_host&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mechanics:&lt;/strong&gt; Configures localized, high-availability authoritative name servers using open-source engines. In strict adherence to our &lt;strong&gt;DRY (Don&amp;rsquo;t Repeat Yourself)&lt;/strong&gt; baseline, identical zone definitions and forward/reverse address layouts are parsed dynamically from a single flat-file variable matrix and mapped across the varying structural syntaxes of Bind, Knot, or PowerDNS.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="3-orchestration--platform-tooling"&gt;3. Orchestration &amp;amp; Platform Tooling&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target Plays:&lt;/strong&gt; &lt;code&gt;Configure Ansible Tower/AWX Resources&lt;/code&gt;, &lt;code&gt;Configure Jenkins Server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invocation Tags:&lt;/strong&gt; &lt;code&gt;config-tower&lt;/code&gt;, &lt;code&gt;config-awx&lt;/code&gt;, &lt;code&gt;config-jenkins&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Core Roles:&lt;/strong&gt; &lt;code&gt;bootstrap_awx_resources&lt;/code&gt;, &lt;code&gt;bootstrap_jenkins_host&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mechanics:&lt;/strong&gt; Configures the primary execution runners of the enterprise.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Jenkins:&lt;/strong&gt; Restores plugins, provisions job templates, and maps local build worker environments.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ansible Tower / AWX:&lt;/strong&gt; Programmatically constructs organizational assets (inventories, credentials, job templates, and notification targets) directly through declarative code blocks, ensuring the runner environment itself is version-controlled.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="strict-dry-configuration-paradigms"&gt;Strict DRY Configuration Paradigms&lt;/h2&gt;
+&lt;p&gt;To avoid configuration drift across varying DNS backends or separate automation runner environments, all data matrices are completely decoupled from the execution code blocks.&lt;/p&gt;</description></item><item><title>Control-Plane Service Roles</title><link>https://dettonville.org/ansible/control-plane-services/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/ansible/control-plane-services/</guid><description>&lt;p&gt;Once a host node is established, accelerated, and encapsulated by the runtime fabric, the platform applies target-specific service definitions. Rather than treating hosts as generic servers, &lt;code&gt;site.yml&lt;/code&gt; matches specific inventory group scopes—such as AI inference compute clusters, corporate domain definitions, or management gateways—and configures them using dedicated service paths.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="service-track-execution-map"&gt;Service Track Execution Map&lt;/h2&gt;
+&lt;p&gt;The control-plane service tier parses the node&amp;rsquo;s final group assignment to apply purpose-driven system profiles:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph TD
+A[Active Runtime Fabric&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;bootstrap_docker_stack Complete&amp;lt;/code&amp;gt;] --&amp;gt; B{Inventory Group Scope?}
+B -- ollama_hosts / aibrix_prod --&amp;gt; C[Local Inference Platforms&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;bootstrap_llm_host&amp;lt;/code&amp;gt;]
+B -- ca_domain_prefix_groups --&amp;gt; D[Inventory Domain Architecture&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Dynamic Target Mapping&amp;lt;/code&amp;gt;]
+B -- ansible_controller --&amp;gt; E[Declarative Automation Panels&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;bootstrap_awx_resources&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#fff,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style D fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style E fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h2 id="1-local-ai-inference-infrastructure-bootstrap_llm_host"&gt;1. Local AI Inference Infrastructure (&lt;code&gt;bootstrap_llm_host&lt;/code&gt;)&lt;/h2&gt;
+&lt;p&gt;For air-gapped or localized enterprise machine learning spaces, the platform isolates model runtime loops entirely within your local computing farm.&lt;/p&gt;</description></item><item><title>Crypto &amp; Hardening Modules</title><link>https://dettonville.org/modules/crypto/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/modules/crypto/</guid><description>&lt;p&gt;The &lt;code&gt;dettonville.crypto&lt;/code&gt; collection provides high-integrity primitives engineered to establish absolute defensive boundaries on target nodes. Operating under a zero-trust model inside isolated networks, these modules eliminate manual key generation and configuration drift for security fixtures.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="module-inventory--parameter-specifications"&gt;Module Inventory &amp;amp; Parameter Specifications&lt;/h2&gt;
+&lt;h3 id="1-local-root--intermediate-pki-crypto_pki_mint"&gt;1. Local Root &amp;amp; Intermediate PKI (&lt;code&gt;crypto_pki_mint&lt;/code&gt;)&lt;/h3&gt;
+&lt;p&gt;Orchestrates the lifecycle of a self-contained, high-availability cryptographic trust anchor. It automates local root CA distribution, intermediate certificate signing, and automated endpoint minting.&lt;/p&gt;</description></item><item><title>Local Hardening Standards</title><link>https://dettonville.org/framework/security/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/framework/security/</guid><description>&lt;p&gt;Operating infrastructure in private or regulated environments requires moving away from reactive security patches and public trust assumptions. The Dettonville framework integrates cryptographic verification and operating system hardening directly into its execution loop, treating security as an immutable system property rather than a post-provisioning checklist.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="defensive-boundary-architecture"&gt;Defensive Boundary Architecture&lt;/h2&gt;
+&lt;p&gt;The framework operates under a zero-trust execution model inside your local network perimeter, structuring defensive layers into three clear operational vectors:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph LR
+A[Cryptographic PKI&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Isolated Trust Anchors&amp;lt;/code&amp;gt;] --&amp;gt; B[OS Level Hardening&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;CIS Baselines / PAM&amp;lt;/code&amp;gt;]
+B --&amp;gt; C[Supply Chain Lock&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Signed Payload Ingest&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="1-cryptographic-pki--local-trust-anchors"&gt;1. Cryptographic PKI &amp;amp; Local Trust Anchors&lt;/h3&gt;
+&lt;p&gt;Without access to external public Certificate Authorities (CAs), the domain must maintain a self-contained, high-integrity cryptographic anchor.&lt;/p&gt;</description></item><item><title>Secure Secrets Boundaries</title><link>https://dettonville.org/ecosystem/secrets/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/ecosystem/secrets/</guid><description>&lt;p&gt;Operating a secure automation platform within private, air-gapped, or highly regulated perimeters requires moving away from clear-text configuration files and external public cloud credential managers.&lt;/p&gt;
+&lt;p&gt;The platform addresses this by establishing an immutable, localized secrets perimeter. By wrapping an open-source &lt;strong&gt;OpenBao&lt;/strong&gt; server architecture inside our standardized, tag-driven container orchestration layer, sensitive tokens are fully encrypted at rest and safely injected into active service containers at runtime.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="secure-secrets-processing-loop"&gt;Secure Secrets Processing Loop&lt;/h2&gt;
+&lt;p&gt;The cryptographic lifecycle transitions unconfigured container clusters into highly secure, automatically unsealed credential systems:&lt;/p&gt;</description></item><item><title>Automation Engineering Standards</title><link>https://dettonville.org/framework/automation/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/framework/automation/</guid><description>&lt;p&gt;To ensure that the datacenter orchestration remains predictable, repeatable, and maintainable across long-term lifecycles, all playbook and role development must conform to strict structural programming standards.&lt;/p&gt;
+&lt;p&gt;By treating infrastructure code with the same rigor as compiled application software, the platform completely eliminates ad-hoc modifications, fragile shell-script loops, and opaque node states.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="core-development-patterns"&gt;Core Development Patterns&lt;/h2&gt;
+&lt;p&gt;The framework enforces three primary software engineering concepts across the entire code repository:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph TD
+A[Decoupled Logic &amp;amp; Data&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Tasks vs inventory/group_vars&amp;lt;/code&amp;gt;] --&amp;gt; B[Strict Idempotency Proofs&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Molecule Testing Lifecycle&amp;lt;/code&amp;gt;]
+B --&amp;gt; C[Flat-File Schema Output&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;No External Database States&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="1-decoupling-execution-logic-from-state-data"&gt;1. Decoupling Execution Logic from State Data&lt;/h3&gt;
+&lt;p&gt;Tasks and roles must operate as generic, abstract machines. No hardcoded hostnames, interface strings, IP assignments, or target configuration blocks are permitted inside a role&amp;rsquo;s &lt;code&gt;tasks/main.yml&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Deployment &amp; Lifecycle Maintenance</title><link>https://dettonville.org/site-management/lifecycle/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/site-management/lifecycle/</guid><description>&lt;p&gt;The &lt;strong&gt;Deployment &amp;amp; Lifecycle Maintenance&lt;/strong&gt; track controls active workloads and runtime systems across the environment. Once physical structures are stabilized and control planes are fully initialized, this track handles the automated expansion, updating, and resource protection of application nodes.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="technical-maintenance-flow"&gt;Technical Maintenance Flow&lt;/h2&gt;
+&lt;p&gt;Workload provisioning and node optimization steps run through a predictable lifecycle path:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph LR
+A[Workload Hydration&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;--tags deploy-vm&amp;lt;/code&amp;gt;] --&amp;gt; B[Rolling Upgrades&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;--tags maintenance-os-upgrade&amp;lt;/code&amp;gt;]
+B --&amp;gt; C[State Redundancy&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;--tags export-tower-*&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h2 id="role--tag-mapping-matrix"&gt;Role &amp;amp; Tag Mapping Matrix&lt;/h2&gt;
+&lt;h3 id="1-vm-deployment--continuous-scaling"&gt;1. VM Deployment &amp;amp; Continuous Scaling&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target Plays:&lt;/strong&gt; &lt;code&gt;Deploy Virtual Machine Templates&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invocation Tags:&lt;/strong&gt; &lt;code&gt;deploy-vm&lt;/code&gt;, &lt;code&gt;deploy-app&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Core Roles:&lt;/strong&gt; Uses hypervisor-specific execution modules (vCenter/Proxmox APIs) combined with base configurations.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mechanics:&lt;/strong&gt; Clones golden OS templates across active server environments. This play automatically assigns virtual compute resources, maps fixed storage points, hooks up network boundaries, and runs initial system setups without human intervention.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="2-zero-downtime-cluster-upgrades"&gt;2. Zero-Downtime Cluster Upgrades&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target Plays:&lt;/strong&gt; &lt;code&gt;Maintenance | OS Upgrade &amp;amp; Security Patching&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invocation Tags:&lt;/strong&gt; &lt;code&gt;maintenance-os-upgrade&lt;/code&gt;, &lt;code&gt;upgrade-packets&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Core Roles:&lt;/strong&gt; &lt;code&gt;maintenance_os_upgrade&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mechanics:&lt;/strong&gt; Safely handles kernel upgrades and package updates across production groups. It gracefully cordons active systems, drains workloads, executes localized package transactions, restarts instances when necessary, and verifies node health before returning them to active clusters.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="3-disaster-recovery-state-extraction"&gt;3. Disaster Recovery State Extraction&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target Plays:&lt;/strong&gt; &lt;code&gt;Remove Tower Objects&lt;/code&gt;, &lt;code&gt;Export Tower Objects&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invocation Tags:&lt;/strong&gt; &lt;code&gt;remove-tower-resources&lt;/code&gt;, &lt;code&gt;export-tower-resources&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Core Roles:&lt;/strong&gt; Uses automated API tasks via &lt;code&gt;awx.awx.export&lt;/code&gt; integrations.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mechanics:&lt;/strong&gt; Protects configuration history. It programmatically extracts all runtime parameters, organizational structures, inventories, and credential references into a single flat text asset (YAML/JSON), keeping the configuration metadata safe from hardware failures.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="recommended-execution-commands"&gt;Recommended Execution Commands&lt;/h2&gt;
+&lt;h3 id="deploy-a-new-application-instance-from-a-gold-template"&gt;Deploy a New Application Instance from a Gold Template&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ansible-playbook -i inventory/hosts site.yml --tags &lt;span style="color:#e6db74"&gt;&amp;#34;deploy-vm&amp;#34;&lt;/span&gt; --limit &lt;span style="color:#e6db74"&gt;&amp;#34;app_nodes&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="run-a-rolling-package-security-upgrade-on-the-compute-group"&gt;Run a Rolling Package Security Upgrade on the Compute Group&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ansible-playbook -i inventory/hosts site.yml --tags &lt;span style="color:#e6db74"&gt;&amp;#34;maintenance-os-upgrade&amp;#34;&lt;/span&gt; --limit &lt;span style="color:#e6db74"&gt;&amp;#34;edge_compute&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="export-ansible-tower-resource-parameters-into-text-assets"&gt;Export Ansible Tower Resource Parameters into Text Assets&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ansible-playbook -i inventory/hosts site.yml --tags &lt;span style="color:#e6db74"&gt;&amp;#34;export-tower-resources&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Platform Engine Modules</title><link>https://dettonville.org/modules/engine/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/modules/engine/</guid><description>&lt;p&gt;The &lt;code&gt;dettonville.engine&lt;/code&gt; collection provides the runtime abstraction layers necessary to deliver unified developer platforms and automation runtimes without public cloud control structures. These modules provision isolated container spaces, local binary endpoints, and highly optimized hardware computing resources for artificial intelligence workflows.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="module-inventory--parameter-specifications"&gt;Module Inventory &amp;amp; Parameter Specifications&lt;/h2&gt;
+&lt;h3 id="1-isolated-container-runtimes-engine_container_stack"&gt;1. Isolated Container Runtimes (&lt;code&gt;engine_container_stack&lt;/code&gt;)&lt;/h3&gt;
+&lt;p&gt;Installs and stabilizes upstream container engines and local execution namespaces, isolating virtual process loops while strictly blocking external runtime socket exposure.&lt;/p&gt;</description></item><item><title>Programmatic Inventory Lifecycle</title><link>https://dettonville.org/framework/inventory-lifecycle/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/framework/inventory-lifecycle/</guid><description>&lt;p&gt;The platform maintains absolute alignment between live compute assets and your declarative code definitions by eliminating manual inventory adjustments. When a virtual machine or bare-metal host is spun up or decommissioned, the lifecycle event is programmatically committed to the Git-backed inventory repository via API integration patterns.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="programmatic-provisioning--git-loop"&gt;Programmatic Provisioning &amp;amp; Git Loop&lt;/h2&gt;
+&lt;p&gt;The host enrollment lifecycle transitions an initial provisioning request into a git-versioned inventory alignment loop without operator intervention:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-mermaid" data-lang="mermaid"&gt;graph TD
+A[1. Provisioning Requested&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;In-House System&amp;lt;/code&amp;gt;] --&amp;gt; B[2. Automated API Signal&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;AAP / AWX / Jenkins&amp;lt;/code&amp;gt;]
+B --&amp;gt; C[3. Execute Provisioning Job&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Playbook / Runner Bubble&amp;lt;/code&amp;gt;]
+C --&amp;gt; D[4. Ingest &amp;amp; Target State&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;git_inventory.update_inventory&amp;lt;/code&amp;gt;]
+D --&amp;gt; E[5. Mutate &amp;amp; Lock Blueprint&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;Clone ➔ Update ➔ Commit ➔ Push&amp;lt;/code&amp;gt;]
+E --&amp;gt; F[6. Core Site Realization&amp;lt;br/&amp;gt;&amp;lt;code&amp;gt;site.yml Active Deployment&amp;lt;/code&amp;gt;]
+style A fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style B fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style C fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style D fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style E fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+style F fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px;
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h2 id="architectural-lifecycle-steps"&gt;Architectural Lifecycle Steps&lt;/h2&gt;
+&lt;h3 id="1-in-house-provisioning-request"&gt;1. In-House Provisioning Request&lt;/h3&gt;
+&lt;p&gt;An infrastructure scaling event or machine decommissioning request is initiated inside your internal, in-house provisioning system. This request carries key asset markers including IP addresses, hostnames, and targeted functional groups (such as GPU capabilities or specific application tags).&lt;/p&gt;</description></item><item><title>dettonville.org updated!</title><link>https://dettonville.org/news/2026-05-21-website-update/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://dettonville.org/news/2026-05-21-website-update/</guid><description>&lt;p&gt;Dettonville has been updated to reflect current content, &lt;a href="http://dettonville.org"&gt;dettonville.org&lt;/a&gt;!&lt;/p&gt;</description></item><item><title>dettonville.org has landed!</title><link>https://dettonville.org/news/2021-03-26-website-live/</link><pubDate>Fri, 26 Mar 2021 00:00:00 +0000</pubDate><guid>https://dettonville.org/news/2021-03-26-website-live/</guid><description>&lt;p&gt;Dettonville has now its own web site, &lt;a href="http://dettonville.org"&gt;dettonville.org&lt;/a&gt;!&lt;/p&gt;</description></item><item><title>About</title><link>https://dettonville.org/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dettonville.org/about/</guid><description>About Dettonville</description></item></channel></rss>
