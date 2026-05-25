@@ -1,0 +1,80 @@
+baseURL: "https://dettonville.org/"
+## while testing use the following
+#baseURL: "https://lj020326.github.io/dettonville.org/"
+
+title: "Dettonville"
+theme: "PaperMod"
+
+# This will generate an index.xml (RSS)
+outputs:
+  home: ["HTML", "RSS"]
+
+ignoreFiles:
+  - archive/
+  - save/
+
+params:
+  env: production
+  # PaperMod supports dark/light toggle
+  defaultTheme: light
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+
+  # Add these social parameters
+  socialIcons:
+    - name: "github"
+      url: "https://github.com/dettonville"
+    - name: "twitter"
+      url: "https://twitter.com/GetDettonville"
+    - name: "discussions"
+      url: "https://github.com/dettonville/dettonville/discussions"
+
+  # PaperMod expects the path relative to the static folder for favicons
+  favicon: "favicon.ico"
+  favicon16x16: "favicon-16x16.ico"
+
+  # Enabling the asset pipeline for fingerprinting/caching
+  assets:
+    # Enables the caching
+    disableFingerprinting: false
+
+  homeInfoParams:
+    Title: "Dettonville Infrastructure Project"
+    Content: "Advanced Automation Engineering & System Hardening Framework."
+
+menu:
+  main:
+    - name: "Framework"
+      url: "framework/"
+      weight: 10
+    - name: "Site Management"
+      url: "site-management/"
+      weight: 20
+    - name: "Ecosytem"
+      url: "ecosystem/"
+      weight: 30
+    - name: "Ansible"
+      url: "ansible/"
+      weight: 40
+#    - name: "Operational"
+#      url: "operational/"
+#      weight: 35
+#    - name: "Examples"
+#      url: "examples/"
+#      weight: 40
+#    - name: "Guides"
+#      url: "guides/"
+#      weight: 50
+#    - name: "Blog"
+#      url: "blog/"
+#      weight: 60
+#    - name: "FAQ"
+#      url: "faq/"
+#      weight: 70
+#    - name: "Community"
+#      url: "community/"
+#      weight: 80
+#    - name: "Development"
+#      url: "development/"
+#      weight: 90

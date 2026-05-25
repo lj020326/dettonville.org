@@ -1,0 +1,11 @@
+<div class="ms-footer" style="padding: 20px; text-align: center; border-top: 1px solid #e2e8f0; margin-top: 50px;">
+    <ul style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px;">
+        <li><a href="{{ "framework/" | relURL }}">Framework</a></li>
+        {{- range .Site.Params.socialIcons }}
+        <li><a href="{{ .url | absURL }}" target="_blank">{{ .name | humanize }}</a></li>
+        {{- end }}
+    </ul>
+    <div style="font-size: 0.8rem; color: #64748b;">
+        © The Dettonville authors {{ now.Format "2006" }}
+    </div>
+</div>

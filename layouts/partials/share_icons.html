@@ -1,0 +1,19 @@
+{{- if .Params.tags }}
+<footer class="post-footer">
+    <ul class="post-tags">
+        {{- range .Params.tags }}
+        <li><a href="{{ "tags/" | relURL }}{{ . | urlize }}/">{{ . }}</a></li>
+        {{- end }}
+    </ul>
+</footer>
+{{- end }}
+
+{{- if .Params.socialIcons }}
+<div class="post-social-footer" style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+    <ul style="list-style: none; padding: 0; display: flex; gap: 20px;">
+        {{- range .Params.socialIcons }}
+        <li><a href="{{ .url | absURL }}" target="_blank">{{ .name | humanize }}</a></li>
+        {{- end }}
+    </ul>
+</div>
+{{- end }}

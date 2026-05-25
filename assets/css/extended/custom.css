@@ -1,0 +1,305 @@
+
+/* Ensure Logo/Brand prominence */
+.logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: left !important;
+/*    max-width: 95% !important;*/
+}
+
+.div {
+    display: block;
+}
+
+/* Standardize full-width feel */
+.main {
+    width: 95% !important;
+    max-width: 1200px !important;
+/*    max-width: none !important;*/
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+/* Fix Bullets Alignment */
+.main-markdown-body ul {
+    list-style: disc !important;
+    padding-left: 20px !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Force white background globally */
+:root {
+    --main-bg: #ffffff !important;
+    --body-bg: #ffffff !important;
+}
+
+/* Typography alignment */
+body {
+    background-color: #ffffff !important;
+    color: #444 !important;
+    display: block;
+    font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    margin: 0 0 150px;
+}
+
+html {
+    position: relative;
+    background: #ffffff;
+    min-height: 100%;
+    color: #444;
+    font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font: 14px / 20px 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Document Framework Global Text Styles */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 15px 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: #1e40af !important;
+    text-transform: none;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    font-size: 24px;
+    line-height: 30px;
+    margin-block-end: 0.83em;
+    margin-block-start: 0.83em;
+    margin-inline-end: 0px;
+    margin-inline-start: 0px;
+    unicode-bidi: isolate;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+}
+
+.hero-content {
+    background: #f1f5f9 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 60px 40px !important;
+    text-align: center !important;
+    vertical-align: middle;
+}
+
+/* Remove the gray background from PaperMod's 'list' class */
+.list {
+    background-color: #ffffff !important;
+}
+
+/* assets/css/extended/custom.css */
+.first-entry {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* hero page */
+/* Grid spacing parity */
+.hero-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* Update the existing hero styles */
+.hero-container {
+    padding: 20px 0;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.hero-col {
+    background: #ffffff; /* White background for the columns */
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    border-radius: 4px;
+}
+
+.hero-col h3 {
+    color: #0f172a; /* Dark navy text to match the original navbar feel */
+    font-weight: 600;
+}
+
+/* Standardize full-width feel */
+/* Container Spacing */
+.dettonville-home-container {
+/*    width: 95% !important;*/
+/*    max-width: none !important;*/
+    max-width: 1200px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+/* Hero Styling */
+.home-hero {
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    padding: 60px 0;
+    text-align: center;
+}
+
+/* Force the container to handle the image alignment */
+.hero-logo-container {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically if needed */
+    margin-bottom: 20px;
+    width: 100%;             /* Ensures it takes full width of the parent */
+}
+
+/* Ensure the image respects the container and stays centered */
+.hero-logo-container img {
+/*    display: block; */
+    height: auto;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.hero-subtitle-orig {
+    color: #0f172a !important;
+    font-size: 18px;
+    font-weight: 500 !important;
+    line-height: 24px;
+    margin-top: 5px !important;
+}
+
+.hero-subtitle {
+    margin-bottom: 30px !important;
+    line-height: 24px;
+    font-size: 18px;
+    font-stretch: 100%;
+    font-weight: 500 !important;      /* Use 300 for that 'light' header look */
+    line-height: 1.2 !important;      /* Tighter line-height for headings */
+}
+
+/* Button Mapping (Replaces uk-button) */
+.hero-buttons a {
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+ }
+.btn-primary {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    border: 1px solid #1d4ed8 !important;
+    text-shadow: none !important;
+}
+.btn-secondary { background: #e2e8f0; color: #0f172a; }
+
+/* Grid Mapping (Replaces uk-grid) */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 50px;
+}
+.feature-item h3 { color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+
+/* Force the header inner wrapper to 95% width */
+/* Expand Navbar Inner Container */
+.header .logo, .header .menu {
+    max-width: 95% !important;
+    margin: 0 auto !important;
+}
+
+/*
+.header {
+    background: #0f172a !important;
+}
+*/
+
+.header .header-nav {
+    align-items: center !important;
+    background: #0f172a !important;
+    border-bottom: none !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    margin: 0 auto !important;
+    max-width: none !important;
+    padding: 10px 2.5% !important;
+    text-align: left !important;
+/*
+    width: 95% !important;
+*/
+}
+
+/* Force Navbar and inner wrapper to full 95% width *//*
+
+header.header {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 20px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    justify-content: space-between !important;
+}
+*/
+
+/* Ensure the nav element itself doesn't constrain width */
+.nav {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.logo a {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+.menu a {
+    color: #cbd5e1 !important; /* Lighter shade for nav links */
+    font-weight: 500;
+}
+
+.menu a:hover {
+    color: #ffffff !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .features-grid { grid-template-columns: 1fr; }
+}
+
+/* Mermaid Graph Consistency */
+/* Override background ONLY for mermaid rendered elements */
+/* Target Mermaid containers and force white background */
+/* Highly specific override to force Mermaid and standard code background to white */
+.main .post-content .mermaid,
+.main .post-content pre,
+.main .post-content code {
+    background-color: #ffffff !important;
+    color: #334155 !important; /* Dark text for readability */
+    border: 1px solid #e2e8f0 !important;
+}
+
+/* Ensure no dark background is applied to the svg or pre blocks */
+pre.mermaid,
+div.mermaid {
+    display: flex !important;
+    justify-content: center !important;
+    margin: 20px auto !important; /* Centers the block itself */
+    background: #ffffff !important;
+}
+
+/* Ensure the SVG inside the container is also centered */
+.mermaid svg {
+    margin: 0 auto !important;
+}

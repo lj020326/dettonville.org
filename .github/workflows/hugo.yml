@@ -1,0 +1,70 @@
+name: Build and Deploy Site
+
+on:
+  push:
+    branches:
+      - main
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs in-progress if a newer one starts
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          # Necessary if your theme is a submodule
+          # NOTE: the "Hugo PaperMod" theme is installed as submodule
+          submodules: true
+          # Required for Hugo to get correct lastmod dates
+          fetch-depth: 0
+          # Prevents credential prompt issues
+          persist-credentials: false
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+
+      - name: Build
+        run: hugo --minify
+
+      # Step 1: Upload the raw public directory straight to GitHub's internal runner space
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      # Step 2: Directly trigger the production deployment engine
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+#      - name: Deploy
+#        uses: peaceiris/actions-gh-pages@v4
+#        env:
+#          # This forces the action to run on Node 24 now, suppressing the warning
+#          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./public
+#          # This forces a clean wipe of the gh-pages branch every time
+#          force_orphan: true
+#          keep_files: false
+#          # Added identity parameters to resolve the deprecation warning
+#          user_name: 'github-actions[bot]'
+#          user_email: 'github-actions[bot]@users.noreply.github.com'
